@@ -19,7 +19,7 @@ public class CouponController {
 	private CouponService couponService;
 
 	// this methos redirect coupon register page
-	@GetMapping("/")
+	@GetMapping("/coupon")
 	public ModelAndView CouponHomePage(ModelAndView modelAndView) {
 		modelAndView.setViewName("/html/coupon/coupon_register");
 		return modelAndView;
