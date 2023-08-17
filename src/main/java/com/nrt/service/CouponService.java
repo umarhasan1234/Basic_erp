@@ -1,12 +1,21 @@
 package com.nrt.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import com.nrt.entity.Coupon;
+import com.nrt.request.CouponRequest;
 
-@Service
+@Component
 public interface CouponService {
 
-	public Boolean Register(Coupon coupon);
+	public Boolean Register(CouponRequest couponRequest);
+
+	public CouponRequest getCouponById(Long couponId);
+
+	public Boolean Delete(long couponId);
+
+	public List<Coupon> FindAllCoupon();
 
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Coupon List</title>
+	<style>
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			padding: 8px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+
+<body>
+	<h2>Coupon List</h2>
+	<table>
+		<tr>
+			<th>Coupon Code</th>
+			<th>Type</th>
+			<th>Amount</th>
+			<th>Created At</th>
+			<th>Expires At</th>
+			<th>Active At</th>
+			<th>Amount Above</th>
+			<th>Description</th>
+			<th>Apply Per User</th>
+		</tr>
+		<tr th:each="coupon : ${listCoupon}">
+			<td th:text="${coupon.code}"></td>
+			<td th:text="${coupon.type}"></td>
+			<td th:text="${coupon.amount}"></td>
+			<td th:text="${coupon.createdAt}"></td>
+			<td th:text="${coupon.expiresAt}"></td>
+			<td th:text="${coupon.activetAt}"></td>
+			<td th:text="${coupon.ifAmountAbove}"></td>
+			<td th:text="${coupon.description}"></td>
+			<td th:text="${coupon.applyPerUser}"></td>
+		</tr>
+	</table>
+</body>
+
+</html>
