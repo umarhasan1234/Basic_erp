@@ -69,6 +69,8 @@ public class ProductController {
 	@RequestMapping("/updateProduct/{id}")
 	public ModelAndView updateProduct(@RequestParam("id")Long id,@ModelAttribute("updateProduct") Product product,ModelAndView modelAndView) {
 		productImpl.updateProducts(id,product);
-		return null ;
+		modelAndView.setViewName("/html/product/add_product"); // View name without extension
+	     modelAndView.addObject("message", "Product update successfull"); // Add model attributes
+	     return modelAndView;
 	}
 }
