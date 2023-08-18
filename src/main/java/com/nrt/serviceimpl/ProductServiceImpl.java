@@ -17,14 +17,14 @@ public class ProductServiceImpl implements ProductService{
 	private ProductRepository productRepository;
 
 	@Override
-	public void saveProduct(Product product) {
+	public void saveAllProduct(Product product) {
 		productRepository.save(product);
 	}
 
 	@Override
 	public List<Product> getAllProduct() {
-		List<Product> pr=productRepository.findAll();
-		return pr;
+		productRepository.findAll();
+		return productRepository.findAll();
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService{
 	  productRepository.deleteById(id);
 	}
 	@Override
-	public void updateProducts(Long id,Product productUpdate) {
+	public void updateProducts(Product productUpdate) {
 	  productRepository.save(productUpdate);
 	}
 
