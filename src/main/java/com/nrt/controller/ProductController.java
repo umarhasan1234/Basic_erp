@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nrt.entity.Product;
@@ -17,58 +19,59 @@ import com.nrt.service.ProductService;
 
 @Controller
 public class ProductController {
-	
+
 	@Autowired
 	private ProductService productImpl;
 
-	
-	//this method redirect product page
+	// this method redirect product page
 	@RequestMapping("/product")
 	public ModelAndView defaultMethod(ModelAndView modelAndView) {
-	 modelAndView.setViewName("/html/product/add_product"); // View name without extension
-     return modelAndView;
-	}
-	
-	//this method add product
-	@PostMapping("saveProduct")
-	public ModelAndView addProduct(@ModelAttribute("addProduct") Product product,ModelAndView modelAndView) {
-		productImpl.saveProduct(product);
-		modelAndView.setViewName("/html/product/add_product"); // View name without extension
-	     modelAndView.addObject("message", "Product add successfull"); // Add model attributes
-	     return modelAndView;
-	}
-	
-	// this method find all product 
-	@GetMapping("/findProduct")
-	public ModelAndView findProduct(@ModelAttribute("findProduct") Product product,ModelAndView modelAndView) {
-		List<Product> pr=productImpl.getAllProduct(product);
-		 modelAndView.setViewName("/html/product/product_list");
-		 modelAndView.addObject("find Product", pr);
-		 modelAndView.addObject("message", "Product show successfull");
+		modelAndView.setViewName("/html/product/addProduct"); // View name without extension
 		return modelAndView;
 	}
-	
-	
+
+	// this method add product
+	@PostMapping("saveProduct")
+	@ResponseBody
+	public ModelAndView addProduct(@RequestBody Product product, ModelAndView modelAndView) {
+		System.out.println(product);
+		productImpl.saveProduct(product);
+		modelAndView.addObject("message", "Product add successfull"); // Add model attributes
+		modelAndView.setViewName("/html/product/addProduct"); // View name without extension
+		return modelAndView;
+	}
+
+	// this method find all product
+	@GetMapping("/listProduct")
+	public ModelAndView findProduct(ModelAndView modelAndView) {
+		List<Product> products = productImpl.getAllProduct();
+		modelAndView.addObject("find Product", products);
+		modelAndView.addObject("message", "Product show successfull");
+		modelAndView.setViewName("/html/product/listProduct");
+		return modelAndView;
+	}
+
 	// this method find product by id
 	@GetMapping("/getProduct/{id}")
-	public ModelAndView getProduct(@RequestParam("id")Long id,ModelAndView modelAndView) {
-		Product pr=productImpl.GetProductById(id);
-		modelAndView.setViewName("/html/product/product_list");
-		modelAndView.addObject("getProductById", pr);
-		return modelAndView ;
+	public ModelAndView getProduct(@RequestParam("id") Long id, ModelAndView modelAndView) {
+		Product products = productImpl.GetProductById(id);
+
+		modelAndView.addObject("getProductById", products);
+		modelAndView.setViewName("/html/product/listProduct");
+		return modelAndView;
 	}
-	
-	
-	//this method delete product by id
-	@DeleteMapping("/delete/{id}")
-	public String deleteProduct(@RequestParam("id")Long id) {
+
+	// this method delete product by id
+	@DeleteMapping("/delete")
+	public String deleteProduct(@RequestParam("id") Long id) {
 		productImpl.deleteProduct(id);
-		return "Delete Succussfully" ;
+		return "Delete Succussfully";
 	}
-	
-	@RequestMapping("/updateProduct/{id}")
-	public ModelAndView updateProduct(@RequestParam("id")Long id,@ModelAttribute("updateProduct") Product product,ModelAndView modelAndView) {
-		productImpl.updateProducts(id,product);
-		return null ;
+
+	@RequestMapping("/updateProduct")
+	public ModelAndView updateProduct(@RequestParam("id") Long id, @ModelAttribute("updateProduct") Product product,
+			ModelAndView modelAndView) {
+		productImpl.updateProducts(id, product);
+		return null;
 	}
 }
