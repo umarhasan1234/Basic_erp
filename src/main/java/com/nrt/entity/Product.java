@@ -26,13 +26,26 @@ public class Product {
     @Column(name="product_description")
     private String description;
     
-	@Column(name="product_price")
-    private int price;
+	@Column(name="Purchase_Price")
+    private int purchasePrice;
+	
+	@Column(name="Max_retail_Price")
+    private int maxRetailPrice;
+	
+	@Column(name="Selling_price")
+    private int sellingPrice;
+	
+	@Column(name="Quantity")
+    private int quantity;
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + "]";
+		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", purchasePrice="
+				+ purchasePrice + ", maxRetailPrice=" + maxRetailPrice + ", sellingPrice=" + sellingPrice
+				+ ", quantity=" + quantity + "]";
 	}
+
+
 
     
 }

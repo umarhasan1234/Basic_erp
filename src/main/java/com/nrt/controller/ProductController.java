@@ -31,11 +31,13 @@ public class ProductController {
 
 	// this method add product
 	@RequestMapping("/saveProduct")
-	public ModelAndView addProduct(@ModelAttribute Product product, ModelAndView modelAndView) {
-		System.out.println(product);
+	public ModelAndView addProduct(@ModelAttribute("product") Product product, ModelAndView modelAndView) {
 		productImpl.saveAllProduct(product);
-		modelAndView.addObject("message", "Product add successfull"); // Add model attributes
-		modelAndView.setViewName("/html/product/add_Product"); // View name without extension
+		modelAndView.addObject("title", "Save Product");
+		modelAndView.addObject("message", "Successfull");
+		modelAndView.addObject("details", "\"Congratulations! Use save Product successfully !");
+		modelAndView.addObject("error", "An error occurred while processing your request. Please try again later.");
+		modelAndView.setViewName("/html/product/response_message"); 
 		return modelAndView;
 	}
 
@@ -73,7 +75,7 @@ public class ProductController {
 	//update product call by id
 	@GetMapping("/updateById/")
 	public ModelAndView updateProduct(@RequestParam("id")Long id,@ModelAttribute Product product,ModelAndView modelAndView) {
-		System.out.println("before first update ");
+		product = productImpl.GetProductById(id);
 		modelAndView.addObject("product", product);
 	     modelAndView.setViewName("/html/product/update_product"); // View name without extension
 	     return modelAndView;
@@ -82,11 +84,12 @@ public class ProductController {
 //	//update product 
 	@RequestMapping("/updateProduct")
 	public ModelAndView updateProduct(@ModelAttribute Product product,ModelAndView modelAndView) {
-		System.out.println("before update ");
-		productImpl.updateProducts(product);
-		System.out.println("after update ");
-		modelAndView.addObject("products", product);
-		modelAndView.setViewName("/html/product/list_product");
+		modelAndView.addObject("title", "Product update");
+		modelAndView.addObject("message", "Successfull");
+		modelAndView.addObject("details", "\"Congratulations! Product Update successfully !");
+		modelAndView.addObject("error", "An error occurred while processing your request. Please try again later.");
+		modelAndView.setViewName
+		(productImpl.updateProducts(product)? "/html/product/response_message" : "/html/product/error_message");	
 		return modelAndView;
 	     
 	}

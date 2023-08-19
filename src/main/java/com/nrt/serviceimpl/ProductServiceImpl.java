@@ -18,7 +18,8 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void saveAllProduct(Product product) {
-		productRepository.save(product);
+	 productRepository.save(product);
+	 
 	}
 
 	@Override
@@ -37,9 +38,16 @@ public class ProductServiceImpl implements ProductService{
 	public void deleteProduct(Long id) {
 	  productRepository.deleteById(id);
 	}
-	@Override
-	public void updateProducts(Product productUpdate) {
-	  productRepository.save(productUpdate);
-	}
+
+	 @Override
+	    public boolean updateProducts(Product productUpdate) {
+	        try {
+	            Product updatedProduct = productRepository.save(productUpdate);
+	            return updatedProduct != null; // Return true if the save operation was successful
+	        } catch (Exception e) {
+	            e.printStackTrace(); // You can handle the exception as needed
+	            return false; // Return false if an exception occurs during the save operation
+	        }
+	    }
 
 }

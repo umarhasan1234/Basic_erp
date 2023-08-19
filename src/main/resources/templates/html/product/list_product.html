@@ -11,7 +11,10 @@
 			<th>Product Id</th>
 			<th>Product Description</th>
 			<th>Product Name</th>
-			<th>Product Price</th>
+			<th>Purchase Price</th>
+			<th>Max Retail Price</th>
+			<th>Selling Pricee</th>
+			<th>Quantity</th>
 			<th>Update Product</th>
 			<th>Delete Product</th>
 		</tr>
@@ -21,7 +24,10 @@
         <td th:text="${product.id}"></td>
         <td th:text="${product.description}"></td>
         <td th:text="${product.name}"></td>
-        <td th:text="${product.price}"></td>
+        <td th:text="${product.purchasePrice}"></td>
+        <td th:text="${product.maxRetailPrice}"></td>
+        <td th:text="${product.sellingPrice}"></td>
+        <td th:text="${product.quantity}"></td>
 		<td><a th:href="@{/updateById/(id=${product.id})}">update</a></td>
         <td><a th:href="@{/delete/(id=${product.id})}">delete</a></td>
     </tr>
